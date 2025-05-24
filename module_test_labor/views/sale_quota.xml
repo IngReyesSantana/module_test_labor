@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_quota_form_view" model="ir.ui.view">
+            <field name="name">sale.quota.form.view</field>
+            <field name="model">sale.quota</field>
+            <field name="arch" type="xml">
+                <form string="Sale Quota">
+                    <header>
+                        <button name="print_quota_report" string="Print Report" type="object" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sale_channel_id"/>
+                                <field name="partner_id"/>
+                                <field name="star_date"/>
+                                <field name="end_date"/>
+                            </group>
+                            <group>
+                                <field name="product_id"/>
+                                <field name="sale_quote"/>
+                                <field name="quantity_sold"/>
+                                <field name="available_quantity"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_quota_tree_view" model="ir.ui.view">
+            <field name="name">sale.quota.tree.view</field>
+            <field name="model">sale.quota</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Quota">
+                    <field name="sale_channel_id"/>
+                    <field name="product_id"/>
+                    <field name="star_date"/>
+                    <field name="end_date"/>
+                    <field name="available_quantity"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_quota_act_window" model="ir.actions.act_window">
+            <field name="name">Sale Quota</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.quota</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                name="Sale Quota"
+                id="sale_quota_menu"
+                parent="sale.product_menu_catalog"
+                action="sale_quota_act_window"
+                sequence="5"/>
+    </data>
+</odoo>

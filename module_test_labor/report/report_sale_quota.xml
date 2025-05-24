@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_sale_quota">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Sales Quota</h2>
+                            <p>
+                                <strong>Channel:</strong>
+                                <t t-esc="doc.sale_channel_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Product:</strong>
+                                <t t-esc="doc.product_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Customer:</strong>
+                                <t t-esc="doc.partner_id.name"/>
+                            </p>
+                            <p>
+                                <strong>Start Date:</strong>
+                                <t t-esc="doc.star_date"/></p>
+                            <p><strong>End Date:</strong>
+                                <t t-esc="doc.end_date"/>
+                            </p>
+                            <p>
+                                <strong>Sale Quota:</strong>
+                                <t t-esc="doc.sale_quote"/>
+                            </p>
+                            <p>
+                                <strong>Quantity Sold:</strong>
+                                <t t-esc="doc.quantity_sold"/>
+                            </p>
+                            <h3>Associated Sale Orders</h3>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Quantity Sold</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.get_sale_orders()" t-as="order">
+                                        <tr>
+                                            <td>
+                                                <t t-esc="order['order_name']"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="order['quantity']"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <record id="report_sale_quota_print" model="ir.actions.report">
+            <field name="name">Report Sale Quota</field>
+            <field name="model">sale.quota</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">module_test_labor.report_sale_quota</field>
+            <field name="report_file">module_test_labor.report_sale_quota</field>
+            <field name="print_report_name">'Report - %s' % object.sale_channel_id.name</field>
+            <field name="attachment">'Report.pdf'</field>
+        </record>
+    </data>
+</odoo>
